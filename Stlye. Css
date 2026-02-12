@@ -1,0 +1,58 @@
+index-html  body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
+
+.app {
+  max-width: 500px;
+  margin: auto;
+  padding: 15px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  background: #1c1c1c;
+  padding: 15px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+}
+
+textarea, input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #00d09c;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.small-btn {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.hidden {
+  display: none;
+}
+
+pre {
+  white-space: pre-wrap;
+}

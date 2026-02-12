@@ -1,4 +1,5 @@
-index.html  {
+index.html  
+{
   "name": "Prompt & Play PRO",
   "short_name": "PromptPlay",
   "start_url": ".",

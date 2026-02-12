@@ -1,4 +1,5 @@
-index-html  const loginSection = document.getElementById("loginSection");
+index.html  
+const loginSection = document.getElementById("loginSection");
 const mainApp = document.getElementById("mainApp");
 
 const loginBtn = document.getElementById("loginBtn");

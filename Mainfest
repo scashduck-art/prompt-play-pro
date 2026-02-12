@@ -1,0 +1,9 @@
+index-html  {
+  "name": "Prompt & Play PRO",
+  "short_name": "PromptPlay",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#00d09c",
+  "icons": []
+}

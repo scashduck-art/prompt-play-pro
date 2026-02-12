@@ -1,0 +1,59 @@
+index.html <!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt & Play PRO</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <div class="app">
+
+    <header>
+      <h1>⚡ Prompt & Play PRO</h1>
+      <button id="logoutBtn" class="small-btn">Logout</button>
+    </header>
+
+    <!-- LOGIN -->
+    <div id="loginSection" class="card">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="mainApp" class="hidden">
+
+      <div class="card">
+        <textarea id="inputText" placeholder="ใส่ keyword หรือรายละเอียด..."></textarea>
+        <button id="generateBtn">🚀 Generate</button>
+      </div>
+
+      <div class="card">
+        <h3>ผลลัพธ์</h3>
+        <pre id="outputText">---</pre>
+        <button id="copyBtn">📋 Copy</button>
+        <button id="exportBtn">⬇ Export TXT</button>
+      </div>
+
+      <div class="card">
+        <h3>Save Preset</h3>
+        <input type="text" id="presetName" placeholder="ชื่อ preset">
+        <button id="savePresetBtn">💾 Save</button>
+        <div id="presetList"></div>
+      </div>
+
+      <div class="card">
+        <h3>History</h3>
+        <div id="historyList"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

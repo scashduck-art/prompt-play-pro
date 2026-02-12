@@ -1,4 +1,4 @@
-index-html  body {
+index.html  body {
   margin: 0;
   font-family: sans-serif;
   background: #0f0f0f;

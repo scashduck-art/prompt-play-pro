@@ -1,128 +1,26 @@
-const loginSection = document.getElementById("loginSection");
-const mainApp = document.getElementById("mainApp");
+async function generatePrompt() {
+  const prompt = document.querySelector("textarea").value;
+  const resultBox = document.querySelector(".result");
 
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
+  resultBox.innerHTML = "⏳ กำลังสร้าง...";
 
-const inputText = document.getElementById("inputText");
-const outputText = document.getElementById("outputText");
+  try {
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    });
 
-const generateBtn = document.getElementById("generateBtn");
-const copyBtn = document.getElementById("copyBtn");
-const exportBtn = document.getElementById("exportBtn");
+    const data = await res.json();
 
-const savePresetBtn = document.getElementById("savePresetBtn");
-const presetList = document.getElementById("presetList");
-const historyList = document.getElementById("historyList");
-
-
-// -------- LOGIN SYSTEM (Demo Local) --------
-loginBtn.addEventListener("click", () => {
-  const user = username.value;
-  const pass = password.value;
-
-  if (user && pass) {
-    localStorage.setItem("loggedIn", "true");
-    loginSection.classList.add("hidden");
-    mainApp.classList.remove("hidden");
+    if (data.choices) {
+      resultBox.innerHTML = data.choices[0].message.content;
+    } else {
+      resultBox.innerHTML = "❌ Error: " + JSON.stringify(data);
+    }
+  } catch (err) {
+    resultBox.innerHTML = "❌ ระบบผิดพลาด";
   }
-});
-
-logoutBtn.addEventListener("click", () => {
-  localStorage.removeItem("loggedIn");
-  location.reload();
-});
-
-window.addEventListener("load", () => {
-  if (localStorage.getItem("loggedIn")) {
-    loginSection.classList.add("hidden");
-    mainApp.classList.remove("hidden");
-  }
-  loadPresets();
-  loadHistory();
-});
-
-
-// -------- GENERATOR --------
-generateBtn.addEventListener("click", () => {
-  const text = inputText.value.trim();
-  if (!text) return;
-
-  const result = `
-🔥 Hook:
-"${text} ที่หยุดทุกสายตา!"
-
-🎯 จุดขาย:
-- ใช้งานง่าย
-- ทำไวรัลได้
-- ปิดการขายโคตรไว
-
-🚀 CTA:
-พิมพ์ "สนใจ" เดี๋ยวส่งลิงก์!
-  `;
-
-  outputText.textContent = result;
-
-  saveHistory(result);
-});
-
-
-// -------- COPY --------
-copyBtn.addEventListener("click", () => {
-  navigator.clipboard.writeText(outputText.textContent);
-  alert("Copied!");
-});
-
-
-// -------- EXPORT --------
-exportBtn.addEventListener("click", () => {
-  const blob = new Blob([outputText.textContent], { type: "text/plain" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "prompt.txt";
-  link.click();
-});
-
-
-// -------- PRESET --------
-savePresetBtn.addEventListener("click", () => {
-  const name = presetName.value;
-  const value = inputText.value;
-
-  const presets = JSON.parse(localStorage.getItem("presets")) || [];
-  presets.push({ name, value });
-  localStorage.setItem("presets", JSON.stringify(presets));
-  loadPresets();
-});
-
-function loadPresets() {
-  presetList.innerHTML = "";
-  const presets = JSON.parse(localStorage.getItem("presets")) || [];
-
-  presets.forEach(p => {
-    const btn = document.createElement("button");
-    btn.textContent = p.name;
-    btn.onclick = () => inputText.value = p.value;
-    presetList.appendChild(btn);
-  });
-}
-
-
-// -------- HISTORY --------
-function saveHistory(text) {
-  const history = JSON.parse(localStorage.getItem("history")) || [];
-  history.unshift(text);
-  localStorage.setItem("history", JSON.stringify(history));
-  loadHistory();
-}
-
-function loadHistory() {
-  historyList.innerHTML = "";
-  const history = JSON.parse(localStorage.getItem("history")) || [];
-
-  history.slice(0,5).forEach(item => {
-    const div = document.createElement("div");
-    div.textContent = item.substring(0,40) + "...";
-    historyList.appendChild(div);
-  });
 }
